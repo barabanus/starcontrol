@@ -55,7 +55,7 @@ def onDisplay():
     glRotatef(time.time() % 360 * ANGLE_PER_SEC, 0, 1, 0)
     glRotatef(90, 1, 0, 0)
     gluQuadricTexture(gSphereQuad, True)
-    gluSphere(gSphereQuad, 2, 100, 100)
+    gluSphere(gSphereQuad, 2.11, 100, 100)
 
     glPopMatrix()
     glutSwapBuffers()
