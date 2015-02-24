@@ -137,9 +137,9 @@ def onProgressUpdate(*ignore):
     value = gProgressVar.get()
     canvas = gProgressCanvas
     canvas.delete(ALL)
-    canvas.create_rectangle(0, 0, int(IMAGE_WIDTH // 2 * value), 20, fill = "#777777")
+    canvas.create_rectangle(0, 0, int(IMAGE_WIDTH // 2 * value), 20, fill = "#777777", outline = "#777777")
     if value > 0: canvas.grid()
-    else:         canvas.grid_remove()
+    else:         canvas.after(1, lambda: canvas.grid_remove())
 
 def onGradientClick(event):
     if event.widget.cget("highlightbackground") == gNonHoverColor: return
@@ -303,8 +303,8 @@ w.bind("<Enter>", onHoverEnter)
 w.bind("<Leave>", onHoverLeave)
 w.grid(row = 0, column = 0, columnspan = 3, padx = 5, pady = 5)
 gPlanetCanvasImage = ImageTk.PhotoImage(Image.new("P", (IMAGE_WIDTH, IMAGE_HEIGHT), 0))
-w.create_image(IMAGE_WIDTH // 2 + 3, IMAGE_HEIGHT // 2 + 3, image = gPlanetCanvasImage)
-gNonHoverColor = w.cget("highlightbackground") 
+w.create_image(w.winfo_reqwidth() // 2, w.winfo_reqheight() // 2, image = gPlanetCanvasImage)
+gNonHoverColor = w.cget("highlightbackground")
 
 # color map
 
