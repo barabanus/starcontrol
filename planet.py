@@ -59,6 +59,8 @@ gColorMapItems      = None
 gProgressCanvas     = None
 gStatusLabel        = None
 
+gNonHoverColor      = None
+
 gProgressVar        = DoubleVar(value = 0)
 gParamsMap          = { }
 
@@ -102,7 +104,7 @@ def showStatus(text):
 
 def onSaveTexture(event):
     if not gPlanetSourceImage or gGenerateThread.isAlive(): return
-    if event.widget.cget("highlightbackground") == "systemWindowBody": return
+    if event.widget.cget("highlightbackground") == gNonHoverColor: return
     
     # generate meta information
 
@@ -140,7 +142,7 @@ def onProgressUpdate(*ignore):
     else:         canvas.grid_remove()
 
 def onGradientClick(event):
-    if event.widget.cget("highlightbackground") == "systemWindowBody": return
+    if event.widget.cget("highlightbackground") == gNonHoverColor: return
     if event.widget.winfo_width() <= 60: return
 
     # create new gradient and button at given position
@@ -155,9 +157,9 @@ def onGradientClick(event):
     generatePalette()
 
 def onDeletePoint(event):
-    if event.widget.cget("highlightbackground") == "systemWindowBody": return
+    if event.widget.cget("highlightbackground") == gNonHoverColor: return
     if len(gColorMapItems) == 3: return
-    event.widget.config(highlightbackground = "systemWindowBody")   
+    event.widget.config(highlightbackground = gNonHoverColor)   
     index = gColorMapItems.index(event.widget)
 
     # shift colors
@@ -173,8 +175,8 @@ def onDeletePoint(event):
     generatePalette()
 
 def onChooseColor(event):
-    if event.widget.cget("highlightbackground") == "systemWindowBody": return
-    event.widget.config(highlightbackground = "systemWindowBody")
+    if event.widget.cget("highlightbackground") == gNonHoverColor: return
+    event.widget.config(highlightbackground = gNonHoverColor)
     (rgb, hex) = tkColorChooser.askcolor(event.widget.cget("bg"))
     if hex:
         event.widget.config(bg = hex)
@@ -184,7 +186,7 @@ def onHoverEnter(event):
     event.widget.config(highlightbackground = "#777777")
 
 def onHoverLeave(event):
-    event.widget.config(highlightbackground = "systemWindowBody")
+    event.widget.config(highlightbackground = gNonHoverColor)
 
 def generatePalette():
     for i, w in enumerate(gColorMapItems):
@@ -302,6 +304,7 @@ w.bind("<Leave>", onHoverLeave)
 w.grid(row = 0, column = 0, columnspan = 3, padx = 5, pady = 5)
 gPlanetCanvasImage = ImageTk.PhotoImage(Image.new("P", (IMAGE_WIDTH, IMAGE_HEIGHT), 0))
 w.create_image(IMAGE_WIDTH // 2 + 3, IMAGE_HEIGHT // 2 + 3, image = gPlanetCanvasImage)
+gNonHoverColor = w.cget("highlightbackground") 
 
 # color map
 
