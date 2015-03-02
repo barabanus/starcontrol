@@ -85,6 +85,7 @@ def createColorMapButton(color):
     w = Canvas(gColorMapFrame, width = 20, height = 20, bg = color)
     w.bind("<ButtonRelease-1>", onChooseColor)
     w.bind("<ButtonRelease-2>", onDeletePoint)
+    w.bind("<ButtonRelease-3>", onDeletePoint)
     w.bind("<Enter>", onHoverEnter)
     w.bind("<Leave>", onHoverLeave)
     return w
