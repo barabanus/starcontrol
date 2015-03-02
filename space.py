@@ -93,6 +93,10 @@ gluPerspective(40, 1, 1, 40)
 glMatrixMode(GL_MODELVIEW)
 gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0)
 glPushMatrix()
+
+if WINPOS != [ -1, -1 ]:
+    glutPositionWindow(2 * WINPOS[0] - glutGet(GLUT_WINDOW_X), 2 * WINPOS[1] - glutGet(GLUT_WINDOW_Y))
+
 glutMainLoop()
 
 ########################################################################################################################
